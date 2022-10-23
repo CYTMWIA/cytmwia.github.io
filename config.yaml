@@ -1,0 +1,39 @@
+baseURL: https://cytmwia.github.io/
+languageCode: zh-CN
+title: CYTMWIA
+theme: hugo-theme-stack
+
+markup:
+  highlight:
+    noClasses: false
+    codeFences: true
+    guessSyntax: true
+    lineNoStart: 1
+    lineNos: true
+    lineNumbersInTable: true
+    tabWidth: 4
+
+menu:
+  social:
+    - identifie: "github"
+      name: "GitHub"
+      url: "https://github.com/CYTMWIA"
+      params:
+        icon: "brand-github"
+
+params:
+  mainSections:
+    - post
+  sidebar:
+    subtitle: 可可爱爱，没有脑袋
+    avatar:
+      src: https://avatars.githubusercontent.com/u/58131156
+      local: false
+  widgets:
+    homepage:
+      - type: search
+      - type: archives
+        params:
+          limit: 99
+    page:
+      - type: toc
