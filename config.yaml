@@ -25,7 +25,7 @@ params:
   mainSections:
     - post
   sidebar:
-    subtitle: 可可爱爱，没有脑袋
+    subtitle: 这也不会，那也不会
     avatar:
       src: https://avatars.githubusercontent.com/u/58131156
       local: false
