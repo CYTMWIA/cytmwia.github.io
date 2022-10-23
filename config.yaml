@@ -8,8 +8,8 @@ markup:
     noClasses: false
     codeFences: true
     guessSyntax: true
-    lineNoStart: 1
-    lineNos: true
+    # lineNoStart: 1
+    # lineNos: true
     lineNumbersInTable: true
     tabWidth: 4
 
@@ -37,3 +37,8 @@ params:
           limit: 99
     page:
       - type: toc
+  article:
+    readingTime: false
+    license:
+      enabled: true
+      default: Licensed under CC BY-NC-SA 4.0
