@@ -22,6 +22,7 @@ menu:
         icon: "brand-github"
 
 params:
+  favicon: https://avatars.githubusercontent.com/u/58131156
   mainSections:
     - post
   sidebar:
