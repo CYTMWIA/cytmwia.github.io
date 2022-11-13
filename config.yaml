@@ -43,3 +43,6 @@ params:
     license:
       enabled: true
       default: Licensed under CC BY-NC-SA 4.0
+  dateFormat:
+    published: 2006-01-02
+    lastUpdated: 2006-01-02
