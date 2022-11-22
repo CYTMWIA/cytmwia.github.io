@@ -39,6 +39,7 @@ params:
     page:
       - type: toc
   article:
+    math: true
     readingTime: false
     license:
       enabled: true
