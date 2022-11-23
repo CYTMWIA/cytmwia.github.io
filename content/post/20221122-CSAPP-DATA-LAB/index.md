@@ -1,6 +1,7 @@
 ---
 title: "CS:APP Data Lab 记录"
 date: 2022-11-22T19:59:02+08:00
+lastmod: 2022-11-23T15:00:00+08:00
 draft: false
 image: 20221122-CSAPP-Cover.png
 ---
@@ -25,7 +26,7 @@ http://csapp.cs.cmu.edu/3e/labs.html
 
 实验环境：`x86_64 Ubuntu 22.04 (WSL 2)`
 
-### bitXor
+### **bitXor**
 
 Description | x^y using only ~ and &
            -|-
@@ -66,7 +67,7 @@ int tmin(void) {
 }
 ```
 
-### isTmax
+### **isTmax**
 
 Description | returns 1 if x is the maximum, two's complement number, and 0 otherwise
            -|-
@@ -93,7 +94,7 @@ int isTmax(int x) {
 若一个数字的最低位是1，那么+1后所有与之前最低位1相连的1都会变为0，直到将最低的0变为1，即对0及之前的位（较低的位）进行取反，这部分在取反、异或后还是0；那么高位呢？和最低位是0一样，高位依然不变，则高位在取反、异或后必然非0。  
 -1的特殊之处就在于它的补码表示中没有0，即没有更高的位可以保持不变了，从而导致最终结果为0（取反前）。  
 
-对-1进行特判并不难，正如下方Version 2的代码所示。  
+对-1进行特判并不难，正如下方Version 2的代码所示（利用对-1进行+1后会得到0的性质）。  
 
 如何更好地理解这份代码（Version 2）呢？  
 基于上方的讨论，+1可以看作是对**最低0及更低位**进行取反操作  
@@ -191,7 +192,7 @@ Description | if x <= y  then return 1, else return 0
 Legal ops   | ! ~ & ^ \| + \<< \>>
 Max ops     | 24
 
-如果可以第一时间想到之前的取相反数（`negate(int x)`）的话，还是蛮简单的。  
+如果可以第一时间想到之前的取相反数（[negate](#negate)）的话，还是蛮简单的。  
 
 ```C
 int isLessOrEqual(int x, int y) {
@@ -221,7 +222,7 @@ int logicalNeg(int x) {
 }
 ```
 
-### howManyBits
+### **howManyBits**
 
 Description | return the minimum number of bits required to represent x in two's complement
            -|-
@@ -232,7 +233,24 @@ Max ops     | 90
 2. 将最高1往下的位全部置1
 3. 计算1的个数，最后+1即可
 
-这题还有一个思路就是一位一位地计算1的个数，但会超出符号数量限制（
+这题还有一个思路就是一位一位地计算1的个数，但会超出符号数量限制（  
+
+值得一提的是如何计算1的个数。  
+其实二进制本身已经告诉我们有多少个1了，只不过它是一位一位地告诉我们的。  
+以8位二进制数`0b10011110`为例，第7位（最高位）有一个1，第6位没有1，第五位也没有1，第四位有一个1……
+我们需要做的，就是把这些分开的数量相加起来而已。具体怎么做呢？请看下方代码。  
+```C
+int x = 158; // 0b10011110
+x = (x & 0x55) + ((x >> 1) & 0x55); // 第一次相加
+x = (x & 0x33) + ((x >> 2) & 0x33); // 第二次相加
+x = (x & 0x0F) + ((x >> 4) & 0x0F); // 第三次相加
+// 现在 x 的值就是 158 二进制表示中 1 的个数
+```
+……一时间没看明白对吧，请看下图——过程中`x`二进制的变化（低8位）。
+![计算过程图片](img1.png)
+可以看到，这是一种分治的办法，从原始的每一位里1的个数、到每两位里1的个数、再到每四位里1的个数，最后变为八位里1的个数。  
+
+可惜实验对常量有使用限制，不能用太大的常量，否则就可以像[Matrix67](http://www.matrix67.com/blog/archives/264)博客里那样一次性处理32位数字了。  
 
 ```C
 int howManyBits(int x) {
